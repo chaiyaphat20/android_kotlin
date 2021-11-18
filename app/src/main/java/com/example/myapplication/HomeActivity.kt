@@ -8,6 +8,7 @@ import com.example.myapplication.ui.main.SectionsPagerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import com.pixplicity.easyprefs.library.Prefs
 
 class HomeActivity : AppCompatActivity() {
 
@@ -18,7 +19,8 @@ class HomeActivity : AppCompatActivity() {
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val isLogin: Boolean = Prefs.getBoolean("is_login", false)
+        showToast(isLogin.toString());
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter

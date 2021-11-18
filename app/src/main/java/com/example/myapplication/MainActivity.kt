@@ -1,9 +1,11 @@
 package com.example.myapplication
 
+import android.content.ContextWrapper
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityMainBinding
+import com.pixplicity.easyprefs.library.Prefs
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,13 +17,28 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //ViewBinding
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setupWidget()
+        // Initialize the Prefs class
+        Prefs.Builder()
+            .setContext(this)
+            .setMode(ContextWrapper.MODE_PRIVATE)
+            .setPrefsName(packageName)
+            .setUseDefaultSharedPreference(true)
+            .build()
 
-        //        //เวลาเรียก services ของ android ต้องโยน context เข้าไป
-//        showToast("Login is success" + "1,200".convertToBath())
+        val isLogin: Boolean = Prefs.getBoolean("is_login", false)
+        if (isLogin) {
+            val intent = Intent(applicationContext, HomeActivity::class.java);
+            startActivity(intent)
+            finish()
+        } else {
+            //ViewBinding
+            binding = ActivityMainBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+            setupWidget()
+        }
+
+        //เวลาเรียก services ของ android ต้องโยน context เข้าไป
+        // showToast("Login is success" + "1,200".convertToBath())
 
     }
 
@@ -46,7 +63,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         //2020 token
-        if(username == "art@gmail.com" && password == "1234"){
+        if (username == "art@gmail.com" && password == "1234") {
+            Prefs.putBoolean("is_login", true)
             val intent = Intent(applicationContext, HomeActivity::class.java);
             startActivity(intent)
             //ไม่ทำให้ย้อนกลับได้ เมื่อกด back
