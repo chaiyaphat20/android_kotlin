@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="or">OR</string>
 </resources>
