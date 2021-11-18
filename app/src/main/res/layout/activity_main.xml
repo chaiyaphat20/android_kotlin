@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <ScrollView
+        android:id="@+id/login_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -25,6 +26,7 @@
                 android:src="@drawable/logo_demo" />
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/login_edittext_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -34,6 +36,7 @@
                 android:textColor="@color/white" />
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/login_edittext_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -44,6 +47,7 @@
                 android:textColor="@color/white" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/login_button_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
