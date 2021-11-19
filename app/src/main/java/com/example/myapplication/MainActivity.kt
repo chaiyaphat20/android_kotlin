@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             .setUseDefaultSharedPreference(true)
             .build()
 
-        val isLogin: Boolean = Prefs.getBoolean("is_login", false)
+        val isLogin: Boolean = Prefs.getBoolean(PREF_KEY_ISLOGIN, false)
         if (isLogin) {
             val intent = Intent(applicationContext, HomeActivity::class.java);
             startActivity(intent)
@@ -64,7 +64,9 @@ class MainActivity : AppCompatActivity() {
 
         //2020 token
         if (username == "art@gmail.com" && password == "1234") {
-            Prefs.putBoolean("is_login", true)
+            Prefs.putBoolean(PREF_KEY_ISLOGIN, true)
+            Prefs.putString(PREF_KEY_USERNAME, username)
+
             val intent = Intent(applicationContext, HomeActivity::class.java);
             startActivity(intent)
             //ไม่ทำให้ย้อนกลับได้ เมื่อกด back
