@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.databinding.CustomProductListBinding
+import com.example.myapplication.models.JsonDemoResultItem
 
-class CustomProductListAdapter(var productList: ArrayList<String>?) :
+class CustomProductListAdapter(var productList: List<JsonDemoResultItem>?) :
     RecyclerView.Adapter<CustomProductListAdapter.ViewHolder>() {
 
     //Layout ในการแสดงผล
@@ -28,15 +29,25 @@ class CustomProductListAdapter(var productList: ArrayList<String>?) :
     override fun onBindViewHolder(holder: CustomProductListAdapter.ViewHolder, position: Int) {
         val binding = holder.binding
 
-        val lorem =
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        //scope fun ช่วยไม่ต้องพิมพ์ binding
+        with(binding) {
 
-        binding.imageViewProduct.setImageResource(R.drawable.banner)
-        binding.textViewName.text = lorem
-        binding.textViewDetail.text = lorem
-        binding.textViewPrice.text = "฿ 25,000"
-        binding.textViewStock.text = "52220 price"
+//            if(productList != null){
+//
+//            }
+            //เหมือนตัวอย่างด้านบน  ถ้า productList เป็น null จะเอาค่าใน let{}
+            productList?.let { list ->
+                //มีค่าชัวร์
+                val item = list[position]
+                val lorem = item.name
+                imageViewProduct.setImageResource(R.drawable.banner)
+                textViewName.text = lorem
+                textViewDetail.text = lorem
+                textViewPrice.text = "฿ 25,000"
+                textViewStock.text = "52220 price"
+            }
 
+        }
     }
 
 
