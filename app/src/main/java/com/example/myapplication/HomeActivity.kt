@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.myapplication.databinding.ActivityHomeBinding
 import com.example.myapplication.databinding.CustomTabMenuBinding
-import com.example.myapplication.ui.main.SectionsPagerAdapter
+import com.example.myapplication.adapter.SectionsPagerAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 

@@ -1,11 +1,13 @@
-package com.example.myapplication.ui.main
+package com.example.myapplication.adapter
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.myapplication.ProductFragment
 import com.example.myapplication.R
+import com.example.myapplication.StockFragment
 
 class SectionsPagerAdapter(
     private val context: Context,

@@ -10,10 +10,12 @@
         <entry key="..\:/Users/arty/AndroidStudioProjects/Kotlin_basic/app/src/main/res/layout/activity_home.xml" value="0.152" />
         <entry key="..\:/Users/arty/AndroidStudioProjects/Kotlin_basic/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/arty/AndroidStudioProjects/Kotlin_basic/app/src/main/res/layout/activity_main2.xml" value="0.17604166666666668" />
+        <entry key="..\:/Users/arty/AndroidStudioProjects/Kotlin_basic/app/src/main/res/layout/custom_product_list.xml" value="0.4" />
+        <entry key="..\:/Users/arty/AndroidStudioProjects/Kotlin_basic/app/src/main/res/layout/custom_stock_list.xml" value="0.264" />
         <entry key="..\:/Users/arty/AndroidStudioProjects/Kotlin_basic/app/src/main/res/layout/custom_tab_menu.xml" value="0.4" />
         <entry key="..\:/Users/arty/AndroidStudioProjects/Kotlin_basic/app/src/main/res/layout/fragment_home.xml" value="0.17604166666666668" />
-        <entry key="..\:/Users/arty/AndroidStudioProjects/Kotlin_basic/app/src/main/res/layout/fragment_product.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/arty/AndroidStudioProjects/Kotlin_basic/app/src/main/res/layout/fragment_stock.xml" value="0.11614583333333334" />
+        <entry key="..\:/Users/arty/AndroidStudioProjects/Kotlin_basic/app/src/main/res/layout/fragment_product.xml" value="0.2" />
+        <entry key="..\:/Users/arty/AndroidStudioProjects/Kotlin_basic/app/src/main/res/layout/fragment_stock.xml" value="0.176" />
       </map>
     </option>
   </component>
