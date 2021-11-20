@@ -6,13 +6,20 @@
     android:background="#ACACAC"
     tools:context=".ProductFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/product_recycleView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:itemCount="100"
-        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/custom_product_list"
-        tools:spanCount="2" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/product_recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="100"
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/custom_product_list"
+            tools:spanCount="2" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </FrameLayout>

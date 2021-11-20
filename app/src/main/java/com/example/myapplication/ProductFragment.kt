@@ -35,6 +35,7 @@ class ProductFragment : Fragment() {
     }
 
     private fun feedNetWork() {
+        binding.swipeRefresh.isRefreshing = true
         //retrofit2
         val service =
             APIClient.getClient().create(APIService::class.java).getDemoUsers().let { call ->
@@ -51,15 +52,21 @@ class ProductFragment : Fragment() {
                         } else {
                             context?.showToast(response.message())
                         }
+                        binding.swipeRefresh.isRefreshing = false
 
                     }
 
                     override fun onFailure(call: Call<List<JsonDemoResultItem>>, t: Throwable) {
                         context?.showToast(t.message.toString())
+                        binding.swipeRefresh.isRefreshing = false
                     }
 
                 })
             }
+        //ถ้า กดรูทลงจะ call feed network อีกครั้ง
+        binding.swipeRefresh.setOnRefreshListener {
+            feedNetWork()
+        }
 
     }
 
