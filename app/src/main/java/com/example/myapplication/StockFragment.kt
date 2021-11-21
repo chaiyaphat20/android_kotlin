@@ -50,32 +50,31 @@ class StockFragment : Fragment() {
     private fun feedNetWork() {
         binding.swipeRefresh.isRefreshing = true
         //retrofit2
-        val service =
-            APIClient.getClient().create(APIService::class.java).getProducts().let { call ->
-                Log.d("cm_network", call.request().toString())
-                //Anonymous Object , object expression
-                call.enqueue(object : Callback<List<ProductResponseItem>> {
-                    override fun onResponse(
-                        call: Call<List<ProductResponseItem>>,
-                        response: Response<List<ProductResponseItem>>
-                    ) {
-                        if (response.isSuccessful) {
-                            binding.stockRecycleView.adapter =
-                                CustomStockListAdapter(response.body())
-                        } else {
-                            context?.showToast(response.message())
-                        }
-                        binding.swipeRefresh.isRefreshing = false
-
+        APIClient.getClient().create(APIService::class.java).getProducts().let { call ->
+            Log.d("cm_network", call.request().toString())
+            //Anonymous Object , object expression
+            call.enqueue(object : Callback<List<ProductResponseItem>> {
+                override fun onResponse(
+                    call: Call<List<ProductResponseItem>>,
+                    response: Response<List<ProductResponseItem>>
+                ) {
+                    if (response.isSuccessful) {
+                        binding.stockRecycleView.adapter =
+                            CustomStockListAdapter(response.body())
+                    } else {
+                        context?.showToast(response.message())
                     }
+                    binding.swipeRefresh.isRefreshing = false
 
-                    override fun onFailure(call: Call<List<ProductResponseItem>>, t: Throwable) {
-                        context?.showToast(t.message.toString())
-                        binding.swipeRefresh.isRefreshing = false
-                    }
+                }
 
-                })
-            }
+                override fun onFailure(call: Call<List<ProductResponseItem>>, t: Throwable) {
+                    context?.showToast(t.message.toString())
+                    binding.swipeRefresh.isRefreshing = false
+                }
+
+            })
+        }
     }
 
     //เข้ามาหน้าแรก ทำงานหลัง onCreate และ Started //หลงกลับมา
