@@ -19,13 +19,13 @@ interface APIService {
     fun addProduct(@Body product: ProductRequest): Call<Any>
 
     //xxxx/product/44
-    @PUT("$API_PRODUCT/$API_PRODUCT_PARAMS_ID")
+    @PUT("$API_PRODUCT/{$API_PRODUCT_PARAMS_ID}")
     fun editProduct(
         @Path(API_PRODUCT_PARAMS_ID) id: Int,
         @Body product: ProductRequest,
     ): Call<Any>
 
-    @DELETE("$API_PRODUCT/$API_PRODUCT_PARAMS_ID")
+    @DELETE("$API_PRODUCT/{$API_PRODUCT_PARAMS_ID}")
     fun deleteProduct(
         @Path(API_PRODUCT_PARAMS_ID) id: Int,
     ): Call<Any>

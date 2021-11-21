@@ -12,6 +12,8 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingBottom="160dp"
+            android:clipToPadding="false"
             android:id="@+id/product_recycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

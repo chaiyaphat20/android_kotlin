@@ -29,7 +29,7 @@ class StockFragment : Fragment() {
         customAdapter = CustomStockListAdapter(null)
 
         setUpWidget()
-        feedNetWork()
+
         return binding.root
     }
 
@@ -76,5 +76,11 @@ class StockFragment : Fragment() {
 
                 })
             }
+    }
+
+    //เข้ามาหน้าแรก ทำงานหลัง onCreate และ Started //หลงกลับมา
+    override fun onResume() {
+        super.onResume()
+        feedNetWork()
     }
 }

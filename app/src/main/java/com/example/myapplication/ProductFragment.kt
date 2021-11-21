@@ -19,50 +19,48 @@ import retrofit2.Response
 class ProductFragment : Fragment() {
 
     private lateinit var binding: FragmentProductBinding
-    private lateinit var customAdapter: CustomProductListAdapter;
+    private lateinit var customAdapter: CustomProductListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_product, container, false)
         binding = FragmentProductBinding.inflate(layoutInflater)
         customAdapter = CustomProductListAdapter(null)
         setUpWidget()
-        feedNetWork()
         return binding.root
     }
 
     private fun feedNetWork() {
         binding.swipeRefresh.isRefreshing = true
         //retrofit2
-        val service =
-            APIClient.getClient().create(APIService::class.java).getProducts().let { call ->
-                Log.d("cm_network", call.request().toString())
-                //Anonymous Object , object expression
-                call.enqueue(object : Callback<List<ProductResponseItem>> {
-                    override fun onResponse(
-                        call: Call<List<ProductResponseItem>>,
-                        response: Response<List<ProductResponseItem>>
-                    ) {
-                        if (response.isSuccessful) {
-                            binding.productRecycleView.adapter =
-                                CustomProductListAdapter(response.body())
-                        } else {
-                            context?.showToast(response.message())
-                        }
-                        binding.swipeRefresh.isRefreshing = false
-
+        APIClient.getClient().create(APIService::class.java).getProducts().let { call ->
+            Log.d("cm_network", call.request().toString())
+            //Anonymous Object , object expression
+            call.enqueue(object : Callback<List<ProductResponseItem>> {
+                override fun onResponse(
+                    call: Call<List<ProductResponseItem>>,
+                    response: Response<List<ProductResponseItem>>
+                ) {
+                    if (response.isSuccessful) {
+                        binding.productRecycleView.adapter =
+                            CustomProductListAdapter(response.body())
+                    } else {
+                        context?.showToast(response.message())
                     }
+                    binding.swipeRefresh.isRefreshing = false
 
-                    override fun onFailure(call: Call<List<ProductResponseItem>>, t: Throwable) {
-                        context?.showToast(t.message.toString())
-                        binding.swipeRefresh.isRefreshing = false
-                    }
+                }
 
-                })
-            }
+                override fun onFailure(call: Call<List<ProductResponseItem>>, t: Throwable) {
+                    context?.showToast(t.message.toString())
+                    binding.swipeRefresh.isRefreshing = false
+                }
+
+            })
+        }
     }
 
     private fun setUpWidget() {
@@ -80,6 +78,16 @@ class ProductFragment : Fragment() {
         binding.swipeRefresh.setOnRefreshListener {
             feedNetWork()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        feedNetWork()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        context?.showToast("Exit")
     }
 
 }

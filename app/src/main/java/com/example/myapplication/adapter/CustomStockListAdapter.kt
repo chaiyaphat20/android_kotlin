@@ -1,10 +1,13 @@
 package com.example.myapplication.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.myapplication.EditActivity
+import com.example.myapplication.INTENT_PRODUCT
 import com.example.myapplication.R
 import com.example.myapplication.databinding.CustomStockListBinding
 import com.example.myapplication.models.ProductResponseItem
@@ -52,5 +55,22 @@ class CustomStockListAdapter(var stockList: List<ProductResponseItem>?) :
 
 
     inner class ViewHolder(view: View, val binding: CustomStockListBinding) :
-        RecyclerView.ViewHolder(view) {}
+        RecyclerView.ViewHolder(view) {
+
+        //เมื่อ class นี้ถูก new  block init จะทำงานกเสมอ
+        init {
+            binding.buttonEdit.setOnClickListener {
+                //adapterPosition คือ ตำแหน่งที่แสดงผล
+                // check ว่า list ไม่ใช่ null หรือ ไม่ ถ้าไม่ null จะผ่าน let  โดยที่ list หมายถึง stockList
+                stockList?.let { list ->
+                    val item = list[adapterPosition]
+                    Intent(view.context, EditActivity::class.java).apply {
+                        putExtra(INTENT_PRODUCT, item)  //ทำ parcelable
+                    }.run {
+                        view.context.startActivity(this)
+                    }
+                }
+            }
+        }
+    }
 }

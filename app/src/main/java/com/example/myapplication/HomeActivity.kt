@@ -1,13 +1,13 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.example.myapplication.adapter.SectionsPagerAdapter
 import com.example.myapplication.databinding.ActivityHomeBinding
 import com.example.myapplication.databinding.CustomTabMenuBinding
-import com.example.myapplication.adapter.SectionsPagerAdapter
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeActivity : AppCompatActivity() {
@@ -44,8 +44,9 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setUpWidget() {
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            Intent(applicationContext, CreateActivity::class.java).run {
+                startActivity(this)
+            }
         }
     }
 
