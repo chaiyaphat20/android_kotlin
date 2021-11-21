@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.databinding.CustomProductListBinding
-import com.example.myapplication.models.JsonDemoResultItem
+import com.example.myapplication.models.ProductResponseItem
+import com.example.myapplication.services.APIClient
 
-class CustomProductListAdapter(var productList: List<JsonDemoResultItem>?) :
+class CustomProductListAdapter(var productList: List<ProductResponseItem>?) :
     RecyclerView.Adapter<CustomProductListAdapter.ViewHolder>() {
 
     //Layout ในการแสดงผล
@@ -32,6 +34,7 @@ class CustomProductListAdapter(var productList: List<JsonDemoResultItem>?) :
         //scope fun ช่วยไม่ต้องพิมพ์ binding
         with(binding) {
 
+
 //            if(productList != null){
 //
 //            }
@@ -39,14 +42,16 @@ class CustomProductListAdapter(var productList: List<JsonDemoResultItem>?) :
             productList?.let { list ->
                 //มีค่าชัวร์
                 val item = list[position]
-                val lorem = item.name
-                imageViewProduct.setImageResource(R.drawable.banner)
-                textViewName.text = lorem
-                textViewDetail.text = lorem
-                textViewPrice.text = "฿ 25,000"
-                textViewStock.text = "52220 price"
+                textViewName.text = item.name
+                textViewDetail.text =
+                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
+                textViewPrice.text = "฿ ${item.price}"
+                textViewStock.text = "${item.stock} price"
+                Glide.with(imageViewProduct.context)
+                    .load(APIClient.getImageUrl() + item.image)
+                    .error(R.drawable.logo)  //กรณี Error ให้ใช้รูปนี้
+                    .into(imageViewProduct)
             }
-
         }
     }
 

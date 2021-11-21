@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.adapter.CustomProductListAdapter
 import com.example.myapplication.databinding.FragmentProductBinding
-import com.example.myapplication.models.JsonDemoResultItem
+import com.example.myapplication.models.ProductResponseItem
 import com.example.myapplication.services.APIClient
 import com.example.myapplication.services.APIService
 import retrofit2.Call
@@ -38,13 +38,13 @@ class ProductFragment : Fragment() {
         binding.swipeRefresh.isRefreshing = true
         //retrofit2
         val service =
-            APIClient.getClient().create(APIService::class.java).getDemoUsers().let { call ->
+            APIClient.getClient().create(APIService::class.java).getProducts().let { call ->
                 Log.d("cm_network", call.request().toString())
                 //Anonymous Object , object expression
-                call.enqueue(object : Callback<List<JsonDemoResultItem>> {
+                call.enqueue(object : Callback<List<ProductResponseItem>> {
                     override fun onResponse(
-                        call: Call<List<JsonDemoResultItem>>,
-                        response: Response<List<JsonDemoResultItem>>
+                        call: Call<List<ProductResponseItem>>,
+                        response: Response<List<ProductResponseItem>>
                     ) {
                         if (response.isSuccessful) {
                             binding.productRecycleView.adapter =
@@ -56,18 +56,13 @@ class ProductFragment : Fragment() {
 
                     }
 
-                    override fun onFailure(call: Call<List<JsonDemoResultItem>>, t: Throwable) {
+                    override fun onFailure(call: Call<List<ProductResponseItem>>, t: Throwable) {
                         context?.showToast(t.message.toString())
                         binding.swipeRefresh.isRefreshing = false
                     }
 
                 })
             }
-        //ถ้า กดรูทลงจะ call feed network อีกครั้ง
-        binding.swipeRefresh.setOnRefreshListener {
-            feedNetWork()
-        }
-
     }
 
     private fun setUpWidget() {
@@ -80,6 +75,10 @@ class ProductFragment : Fragment() {
         }.also {
             it.addItemDecoration(GridSpacingItemDecoration(2, 30, true))
             it.setHasFixedSize(true)
+        }
+        //ถ้า กดรูทลงจะ call feed network อีกครั้ง
+        binding.swipeRefresh.setOnRefreshListener {
+            feedNetWork()
         }
     }
 

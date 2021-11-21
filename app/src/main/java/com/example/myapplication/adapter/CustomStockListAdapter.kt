@@ -4,10 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.databinding.CustomStockListBinding
+import com.example.myapplication.models.ProductResponseItem
+import com.example.myapplication.services.APIClient
 
-class CustomStockListAdapter(var stockList: ArrayList<String>?) :
+class CustomStockListAdapter(var stockList: List<ProductResponseItem>?) :
     RecyclerView.Adapter<CustomStockListAdapter.ViewHolder>() {
 
     //Layout ในการแสดงผล
@@ -28,14 +31,22 @@ class CustomStockListAdapter(var stockList: ArrayList<String>?) :
     override fun onBindViewHolder(holder: CustomStockListAdapter.ViewHolder, position: Int) {
         val binding = holder.binding
 
-        val lorem =
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-
-        binding.imageViewProduct.setImageResource(R.drawable.banner)
-        binding.textViewName.text = lorem
-        binding.textViewDetail.text = lorem
-        binding.textViewPrice.text = "฿ 25,000"
-        binding.textViewStock.text = "52220 price"
+        //scope fun ช่วยไม่ต้องพิมพ์ binding
+        with(binding) {
+            stockList?.let { list ->
+                //มีค่าชัวร์
+                val item = list[position]
+                textViewName.text = item.name
+                textViewDetail.text =
+                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
+                textViewPrice.text = "฿ ${item.price}"
+                textViewStock.text = "${item.stock} price"
+                Glide.with(imageViewProduct.context)
+                    .load(APIClient.getImageUrl() + item.image)
+                    .error(R.drawable.logo)
+                    .into(imageViewProduct)
+            }
+        }
 
     }
 
